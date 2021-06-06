@@ -23,7 +23,7 @@ namespace AnimalBot
 			string token = File.ReadAllText("TOKEN.txt");
 			await _client.LoginAsync(TokenType.Bot, token);
 			await _client.StartAsync();
-			await _client.SetActivityAsync(new Game(File.ReadAllText("prefix.txt")[0] + "help", ActivityType.Listening, ActivityProperties.None));
+			await _client.SetActivityAsync(new Game(File.ReadAllText("PREFIX.txt")[0] + "help", ActivityType.Listening, ActivityProperties.None));
 			await Task.Delay(-1);
 		}
 
@@ -42,7 +42,7 @@ namespace AnimalBot
 		private Task CommandHandlerFunc(SocketMessage message)
 		{
 			if (message.Author.IsBot) return Task.CompletedTask;
-			char prefix = File.ReadAllText("prefix.txt")[0];
+			char prefix = File.ReadAllText("PREFIX.txt")[0];
 			if (!message.Content.StartsWith(prefix)) return Task.CompletedTask;
 			int lengthOfCommand = message.Content.Length;
 			if (message.Content.Contains(' ')) lengthOfCommand = message.Content.IndexOf(' ');
