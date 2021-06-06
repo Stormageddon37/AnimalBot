@@ -80,8 +80,6 @@ namespace AnimalBot
 				**{prefix}fox** sends a fox photo
 				**{prefix}bird** sends a bird photo
 				**{prefix}koala** sends a koala
-				
-				This is a work in progress. Please contant **nitzan@bresler.co.il** if this hasn't been updated in a while or if you find a bug.
 				");
 					LogCommands(message, command);
 					break;
