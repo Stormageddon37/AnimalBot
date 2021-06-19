@@ -6,4 +6,4 @@ By the way, this is a bot for Discord that sends (usually cute) animal photos an
 
 
 
-* I took some time to fix it, so make that 2 nights
+I took some time to fix it, so make that 2 nights
