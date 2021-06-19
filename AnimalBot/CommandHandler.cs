@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AnimalBot
 {
@@ -43,6 +46,7 @@ namespace AnimalBot
 		{
 			if (message.Author.IsBot) return Task.CompletedTask;
 			char prefix = File.ReadAllText("PREFIX.txt")[0];
+			string ADMIN_ID = File.ReadAllText("ADMIN.txt");
 			if (!message.Content.StartsWith(prefix)) return Task.CompletedTask;
 			int lengthOfCommand = message.Content.Length;
 			if (message.Content.Contains(' ')) lengthOfCommand = message.Content.IndexOf(' ');
@@ -81,7 +85,7 @@ namespace AnimalBot
 				**{prefix}bird** sends a bird photo
 				**{prefix}koala** sends a koala
 				
-				This is a work in progress. Please contant **nitzan@bresler.co.il** if this hasn't been updated in a while or if you find a bug.
+				Code: **https://github.com/Stormageddon37/AnimalBot**
 				");
 					LogCommands(message, command);
 					break;
@@ -117,8 +121,24 @@ namespace AnimalBot
 					message.Channel.SendMessageAsync(url);
 					LogCommands(message, command);
 					break;
+
+				case "ping":
+					message.Channel.SendMessageAsync(_client.Latency.ToString());
+					break;
+
+				case "restart":
+				case "reboot":
+				case "r":
+					if (message.Author.Id.ToString().Equals(ADMIN_ID))
+					{
+						message.Channel.SendMessageAsync("Restarting Animal Bot...");
+						Process.Start("AnimalBot.bat");
+						Thread.Sleep(500);
+						_client.StopAsync();
+					}
+					break;
 			}
 			return Task.CompletedTask;
 		}
-	}
+    }
 }
