@@ -1,1 +1,1 @@
-put your token here
+<YOUR DISCORD BOT TOKEN HERE>
