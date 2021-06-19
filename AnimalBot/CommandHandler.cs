@@ -124,6 +124,7 @@ namespace AnimalBot
 
 				case "ping":
 					message.Channel.SendMessageAsync(_client.Latency.ToString());
+					LogCommands(message, command);
 					break;
 
 				case "restart":
@@ -135,6 +136,7 @@ namespace AnimalBot
 						return Task.CompletedTask;
 					}
 					message.Channel.SendMessageAsync("Restarting Animal Bot...");
+					LogCommands(message, command);
 					Process.Start("AnimalBot.bat");
 					Thread.Sleep(500);
 					_client.StopAsync();
