@@ -123,8 +123,9 @@ namespace AnimalBot
 					break;
 
 				case "ping":
+				case "latency":
 					message.AddReactionAsync(new Emoji("👍"));
-					message.Channel.SendMessageAsync(_client.Latency.ToString());
+					message.Channel.SendMessageAsync("ping is" + _client.Latency.ToString() + "ms");
 					LogCommands(message, command);
 					break;
 
