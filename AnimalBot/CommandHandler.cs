@@ -123,6 +123,7 @@ namespace AnimalBot
 					break;
 
 				case "ping":
+					message.AddReactionAsync(new Emoji("👍"));
 					message.Channel.SendMessageAsync(_client.Latency.ToString());
 					LogCommands(message, command);
 					break;
@@ -130,6 +131,7 @@ namespace AnimalBot
 				case "restart":
 				case "reboot":
 				case "r":
+					message.AddReactionAsync(new Emoji("👍"));
 					if (!message.Author.Id.ToString().Equals(ADMIN_ID))
 					{
 						message.Channel.SendMessageAsync("You do not have permission to use this command");
