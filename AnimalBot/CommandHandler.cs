@@ -85,6 +85,8 @@ namespace AnimalBot
 				**{prefix}bird** sends a bird photo
 				**{prefix}koala** sends a koala
 				**{prefix}ping** or **{prefix}latency** sends the current latency for the bot
+
+				Current latency (ping): {_client.Latency.ToString()} ms.
 				
 				Source Code: **https://github.com/Stormageddon37/AnimalBot**
 				");
