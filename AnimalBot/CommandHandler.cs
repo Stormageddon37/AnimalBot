@@ -65,7 +65,7 @@ namespace AnimalBot
 					message.Channel.SendMessageAsync
 					($@"THIS IS THE HELP SCREEN. CONSIDER YOURSELF HELPED
 
-				List of **public** commands (last updated 29-05-2021):
+				List of **public** commands (last updated 20-06-2021):
 
 				**{prefix}hello** is a friendly greeting
 				**{prefix}help** gets you this screen
