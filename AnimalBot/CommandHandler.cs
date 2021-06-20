@@ -123,19 +123,25 @@ namespace AnimalBot
 					break;
 
 				case "ping":
+					message.AddReactionAsync(new Emoji("👍"));
 					message.Channel.SendMessageAsync(_client.Latency.ToString());
+					LogCommands(message, command);
 					break;
 
 				case "restart":
 				case "reboot":
 				case "r":
-					if (message.Author.Id.ToString().Equals(ADMIN_ID))
+					message.AddReactionAsync(new Emoji("👍"));
+					if (!message.Author.Id.ToString().Equals(ADMIN_ID))
 					{
-						message.Channel.SendMessageAsync("Restarting Animal Bot...");
-						Process.Start("AnimalBot.bat");
-						Thread.Sleep(500);
-						_client.StopAsync();
+						message.Channel.SendMessageAsync("You do not have permission to use this command");
+						return Task.CompletedTask;
 					}
+					message.Channel.SendMessageAsync("Restarting Animal Bot...");
+					LogCommands(message, command);
+					Process.Start("AnimalBot.bat");
+					Thread.Sleep(500);
+					_client.StopAsync();
 					break;
 			}
 			return Task.CompletedTask;
