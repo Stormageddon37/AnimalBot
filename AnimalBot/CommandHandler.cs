@@ -84,8 +84,9 @@ namespace AnimalBot
 				**{prefix}fox** sends a fox photo
 				**{prefix}bird** sends a bird photo
 				**{prefix}koala** sends a koala
+				**{prefix}ping** or **{prefix}latency** sends the current latency for the bot
 				
-				Code: **https://github.com/Stormageddon37/AnimalBot**
+				Source Code: **https://github.com/Stormageddon37/AnimalBot**
 				");
 					LogCommands(message, command);
 					break;
@@ -125,7 +126,7 @@ namespace AnimalBot
 				case "ping":
 				case "latency":
 					message.AddReactionAsync(new Emoji("👍"));
-					message.Channel.SendMessageAsync("ping is" + _client.Latency.ToString() + "ms");
+					message.Channel.SendMessageAsync("ping is " + _client.Latency.ToString() + "ms");
 					LogCommands(message, command);
 					break;
 
