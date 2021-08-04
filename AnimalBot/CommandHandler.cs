@@ -19,6 +19,9 @@ namespace AnimalBot
 		public async Task MainAsync()
 		{
 			Console.BackgroundColor = ConsoleColor.Black;
+			Console.ForegroundColor = ConsoleColor.DarkYellow;
+			Console.WriteLine("Running AnimalBot.exe");
+			Console.WriteLine();
 			Console.ForegroundColor = ConsoleColor.Green;
 			_client = new DiscordSocketClient();
 			_client.MessageReceived += CommandHandlerFunc;
@@ -26,19 +29,26 @@ namespace AnimalBot
 			string token = File.ReadAllText("TOKEN.txt");
 			await _client.LoginAsync(TokenType.Bot, token);
 			await _client.StartAsync();
-			await _client.SetActivityAsync(new Game(File.ReadAllText("PREFIX.txt")[0] + "help", ActivityType.Listening, ActivityProperties.None));
+			await _client.SetActivityAsync(new Game(File.ReadAllText("PREFIX.txt")[0] + "help",
+				ActivityType.Listening, ActivityProperties.None));
 			await Task.Delay(-1);
 		}
 
 		private Task LoginPrint(LogMessage msg)
 		{
+			Console.ForegroundColor = ConsoleColor.Red;
 			Console.WriteLine(msg.ToString());
+			Console.WriteLine();
+			Console.ForegroundColor = ConsoleColor.Green;
 			return Task.CompletedTask;
 		}
 
 		private Task LogCommands(SocketMessage message, string command)
 		{
-			Console.WriteLine($@"NEW MESSAGE FROM {message.Author} using {command} at {message.Timestamp.ToString().Substring(0, 19)}");
+			Console.ForegroundColor = ConsoleColor.Cyan;
+			Console.WriteLine($@"NEW MESSAGE (ON {_client.CurrentUser.Username.ToString()}) FROM {message.Author} using {command} at {message.Timestamp.AddHours(3).ToString().Substring(0, 19)}");
+			Console.WriteLine();
+			Console.ForegroundColor = ConsoleColor.Green;
 			return Task.CompletedTask;
 		}
 
