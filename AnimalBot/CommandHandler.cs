@@ -12,6 +12,7 @@ namespace AnimalBot
 {
 	class CommandHandler
 	{
+		readonly Emoji thumbs_up = new Emoji("👍");
 		public static void Main(string[] args)
 		 => new CommandHandler().MainAsync().GetAwaiter().GetResult();
 
@@ -19,8 +20,10 @@ namespace AnimalBot
 		public async Task MainAsync()
 		{
 			Console.BackgroundColor = ConsoleColor.Black;
-			Console.ForegroundColor = ConsoleColor.DarkYellow;
+			Console.ForegroundColor = ConsoleColor.Red;
 			Console.WriteLine("Running AnimalBot.exe");
+			Console.WriteLine();
+			Console.WriteLine($@"{DateTime.Now.ToString().Substring(11)} Discord     Initializing");
 			Console.WriteLine();
 			Console.ForegroundColor = ConsoleColor.Green;
 			_client = new DiscordSocketClient();
@@ -49,6 +52,7 @@ namespace AnimalBot
 			Console.WriteLine($@"NEW MESSAGE (ON {_client.CurrentUser.Username.ToString()}) FROM {message.Author} using {command} at {message.Timestamp.AddHours(3).ToString().Substring(0, 19)}");
 			Console.WriteLine();
 			Console.ForegroundColor = ConsoleColor.Green;
+			message.AddReactionAsync(thumbs_up);
 			return Task.CompletedTask;
 		}
 
@@ -65,13 +69,11 @@ namespace AnimalBot
 			switch (command)
 			{
 				case "hello":
-					message.AddReactionAsync(new Emoji("👍"));
 					message.Channel.SendMessageAsync($@"Hello {message.Author.Mention}");
 					LogCommands(message, command);
 					break;
 
 				case "help":
-					message.AddReactionAsync(new Emoji("👍"));
 					message.Channel.SendMessageAsync
 					($@"THIS IS THE HELP SCREEN. CONSIDER YOURSELF HELPED
 
@@ -109,7 +111,6 @@ namespace AnimalBot
 				case "foxfact":
 				case "birdfact":
 				case "koalafact":
-					message.AddReactionAsync(new Emoji("👍"));
 					WebRequest fact_request = HttpWebRequest.Create("https://some-random-api.ml/facts/" + command.Substring(0, command.Length - 4));
 					WebResponse fact_response = fact_request.GetResponse();
 					StreamReader fact_reader = new StreamReader(fact_response.GetResponseStream());
@@ -125,7 +126,6 @@ namespace AnimalBot
 				case "fox":
 				case "bird":
 				case "koala":
-					message.AddReactionAsync(new Emoji("👍"));
 					WebRequest request = HttpWebRequest.Create($@"https://some-random-api.ml/img/" + command);
 					if (command.Equals("redpanda")) request = HttpWebRequest.Create($@"https://some-random-api.ml/img/red_panda");
 					WebResponse response = request.GetResponse();
@@ -137,7 +137,6 @@ namespace AnimalBot
 
 				case "ping":
 				case "latency":
-					message.AddReactionAsync(new Emoji("👍"));
 					message.Channel.SendMessageAsync("ping is " + _client.Latency.ToString() + "ms");
 					LogCommands(message, command);
 					break;
@@ -145,7 +144,6 @@ namespace AnimalBot
 				case "restart":
 				case "reboot":
 				case "r":
-					message.AddReactionAsync(new Emoji("👍"));
 					if (!message.Author.Id.ToString().Equals(ADMIN_ID))
 					{
 						message.Channel.SendMessageAsync("You do not have permission to use this command");
